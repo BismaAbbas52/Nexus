@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
 
@@ -13,6 +14,8 @@ app.use(express.json());
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected Successfully'))
   .catch((err) => console.log('MongoDB Connection Error:', err));
+
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Nexus Backend is running!');
